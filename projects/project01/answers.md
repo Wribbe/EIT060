@@ -33,3 +33,7 @@ protect?
 
 **Answer:** 
 Two keys are needed for decrypting the trust/key-store for reading, the other two are used to edit or add trusted keys to each respective store.
+
+**Question F:** What does the server answer?
+
+**Answer:** The client's reversed message.
