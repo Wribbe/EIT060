@@ -1,5 +1,5 @@
 #The oneliner.
-* git clone https://github.com/Wribbe/EIT060.git && cd EIT060/projects/project01 && bash run.sh
+ `git clone https://github.com/Wribbe/EIT060.git && cd EIT060/projects/project01 && bash run.sh`
 
 #How to run.
 * Clone the files using: `git clone https://github.com/Wribbe/EIT060.git` in a terminal.
