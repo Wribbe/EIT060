@@ -11,7 +11,7 @@
 **Answer:**
 Use command `openssl x509 -req -in ca.certreq -CA ca_cert.pem -CAkey ca_key.pem -extfile v3.ext -CAcreateserial -out signedkeys.cert -passin pass:$pass`
 
-**Question C: ** What are extensions and what do they contain?
+**Question C:** What are extensions and what do they contain?
 
 **Answer:**
 External keys that define the settings of the certificate, or explain the purpose of the certificate.
@@ -22,13 +22,13 @@ For example:
 
 >basicConstraints=critical,CA:TRUE, pathlen:0
 
-**Question D: ** Is it possible to just make a copy of the client-side truststore,
+**Question D:** Is it possible to just make a copy of the client-side truststore,
 why or why not?
 
 **Answer:**
 Yes it's possible, the keystores are only encrypted text. With the correct key it can be decrypted.
 
-**Question E: ** What is the purpose of each of the four password? That is, what does each password
+**Question E:** What is the purpose of each of the four password? That is, what does each password
 protect?
 
 **Answer:** 
