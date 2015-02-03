@@ -27,3 +27,9 @@ why or why not?
 
 **Answer:**
 Yes it's possible, the keystores are only encrypted text. With the correct key it can be decrypted.
+
+**Question E: ** What is the purpose of each of the four password? That is, what does each password
+protect?
+
+**Answer:** 
+Two keys are needed for decrypting the trust/key-store for reading, the other two are used to edit or add trusted keys to each respective store.
