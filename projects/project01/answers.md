@@ -15,9 +15,15 @@ Use command `openssl x509 -req -in ca.certreq -CA ca_cert.pem -CAkey ca_key.pem 
 
 **Answer:**
 External keys that define the settings of the certificate, or explain the purpose of the certificate.
->For example:
+For example:
 >basicConstraints=CA:TRUE
 
 >basicConstraints=CA:FALSE
 
 >basicConstraints=critical,CA:TRUE, pathlen:0
+
+**Question D: ** Is it possible to just make a copy of the client-side truststore,
+why or why not?
+
+**Answer:**
+Yes it's possible, the keystores are only encrypted text. With the correct key it can be decrypted.
