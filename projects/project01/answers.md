@@ -17,5 +17,7 @@ Use command `openssl x509 -req -in ca.certreq -CA ca_cert.pem -CAkey ca_key.pem 
 External keys that define the settings of the certificate, or explain the purpose of the certificate.
 >For example:
 >basicConstraints=CA:TRUE
+
 >basicConstraints=CA:FALSE
+
 >basicConstraints=critical,CA:TRUE, pathlen:0
