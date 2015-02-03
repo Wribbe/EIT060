@@ -19,7 +19,7 @@ keytool -import -v -file ca_cert.pem -keystore $truststore -storepass $pass
 
 echo "Create keystore with key-pairs"
 keytool -alias key_pair -genkeypair  -keystore $keystore -storepass $pass  <<EOD
-<atn08sen>(StefanEng)/<dat12emu>(Erik Munkby)/<dic13sli>(Sara Lindgren)/<dat12bli>(Björn Lindquist)
+<atn08sen>(StefanEng)/<dat12emu>(Erik Munkby)/<dic13sli>(Sara Lindgren)
 .
 .
 .
