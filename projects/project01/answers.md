@@ -8,3 +8,5 @@
 
 **Question B:** How can you tell keytool to generate a CSR for an X.509 version 3 client certificate (atstep 4), or tell OpenSSL to force generation of a version 3 certificate (at step 5)?
 
+**Answer:**
+Use command `openssl x509 -req -in ca.certreq -CA ca_cert.pem -CAkey ca_key.pem -extfile v3.ext -CAcreateserial -out signedkeys.cert -passin pass:$pass`

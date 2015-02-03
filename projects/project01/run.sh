@@ -36,7 +36,7 @@ echo "Creating sign-request"
 keytool -alias key_pair -certreq -file ca.certreq -keystore $keystore -storepass $pass
 
 echo "Signing sign-request"
-openssl x509 -req -in ca.certreq -CA ca_cert.pem -CAkey ca_key.pem -CAcreateserial -out signedkeys.cert -passin pass:$pass
+openssl x509 -req -in ca.certreq -CA ca_cert.pem -CAkey ca_key.pem -extfile v3.ext -CAcreateserial -out signedkeys.cert -passin pass:$pass
 
 echo "Import signed request to $keystore"
 keytool -import -alias key_pair -v -file signedkeys.cert -keystore $keystore -storepass $pass
