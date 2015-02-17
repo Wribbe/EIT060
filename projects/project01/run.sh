@@ -29,6 +29,8 @@ yes
 
 EOD
 
+
+
 echo "Import ca_cert.pem to $keystore"
 keytool -import -file ca_cert.pem -keystore $keystore -storepass $pass
 
@@ -41,11 +43,48 @@ openssl x509 -req -in ca.certreq -CA ca_cert.pem -CAkey ca_key.pem -extfile v3.e
 echo "Import signed request to $keystore"
 keytool -import -alias key_pair -v -file signedkeys.cert -keystore $keystore -storepass $pass
 
+
+
+
+#myserver serverkeystore
+
+
+echo "Create keystore with key-pairs"
+keytool -alias key_pair -genkeypair  -keystore serverkeystore -storepass $pass  <<EOD
+myserver
+.
+.
+.
+.
+.
+yes
+
+EOD
+
+echo "Import ca_cert.pem to $keystore"
+keytool -import -file ca_cert.pem -keystore serverkeystore -storepass $pass
+
+echo "Creating sign-request"
+keytool -alias key_pair -certreq -file ca.certreq -keystore serverkeystore -storepass $pass
+
+echo "Signing sign-request"
+openssl x509 -req -in ca.certreq -CA ca_cert.pem -CAkey ca_key.pem -extfile v3.ext -CAcreateserial -out signedkeys.cert -passin pass:$pass
+
+echo "Import signed request to $keystore"
+keytool -import -alias key_pair -v -file signedkeys.cert -keystore serverkeystore -storepass $pass
+
+
+
+
+
+
+
+
+
 echo "Store output"
 keytool -list -v -keystore $keystore -storepass $pass > output.txt
 
 echo "Copy stores"
-cp $keystore serverkeystore
 cp $keystore clientkeystore
 cp $truststore clienttruststore 
 cp $truststore servertruststore 
