@@ -55,14 +55,20 @@ create_and_sign_request() {
     keytool -import -alias $5 -v -file $2 -keystore $4 -storepass $3
 }
 
-rm stores/*
-rm keys/*
+
+
+rm -rf stores
+rm -rf keys
+
+mkdir stores
+mkdir keys
 
 cakey="keys/ca_key.pem"
 cacert="keys/ca_cert.pem"
 
 password="password"
 CN_String="<atn08sen>(StefanEng)/<dat12emu>(Erik Munkby)/<dic13sli>(Sara Lindgren)"
+
 
 create_caCert
 create_truststore stores/test_store $password CN
