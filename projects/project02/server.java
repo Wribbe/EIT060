@@ -11,6 +11,7 @@ public class server implements Runnable {
 
     public server(ServerSocket ss) throws IOException {
         serverSocket = ss;
+        //testkommentar
         newListener();
     }
 
