@@ -55,7 +55,29 @@ create_and_sign_request() {
     keytool -import -alias $5 -v -file $2 -keystore $4 -storepass $3
 }
 
+create_signed_keystore() {
 
+    # input parameters.
+    username=$1
+    password=$2
+    type=$3
+
+    # generated parameters.
+    keypair_name="${username}_keypair"
+    request_name="${username}_certrequest.pem"
+    signed_request_name="${username}_signed.pem"
+
+    echo "username: $username"
+    echo "password: $password"
+    echo "type: $type"
+    echo "keypair_name: $keypair_name"
+    echo "request_name: $request_name"
+    echo "signed_request_name: $signed_request_name"
+
+    create_keystore "stores/$username" "$password" "$type" "$keypair_name"
+    create_and_sign_request "keys/$request_name" "keys/$signed_request_name" \
+                            "$password" "stores/$username" "$keypair_name"
+}
 
 rm -rf stores
 rm -rf keys
@@ -75,13 +97,8 @@ create_caCert # Create CA-certificate.
 create_truststore stores/clienttruststore $password CN
 create_truststore stores/servertruststore $password CN
 
-create_keystore stores/clientkeystore $password "$CN_String" key_pair
-create_and_sign_request keys/clientcertreq.pem keys/clientsignedcert.pem \
-                        $password stores/clientkeystore key_pair
+# create_signed_keystore username password {user-type}.
+# creates a keystorefile named {username} signed by CA with CN={user-type}.
 
-#create_caCert # Create a new missmathing CA_cert.
-
-create_keystore stores/serverkeystore $password "myserver" server_keys
-create_and_sign_request keys/servercertreq.pem keys/serversignedcert.pem \
-                        $password stores/serverkeystore server_keys
-
+create_signed_keystore clientkeystore password user
+create_signed_keystore serverkeystore password server 
