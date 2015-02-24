@@ -1,9 +1,7 @@
-truststore='truststore'
-keystore='keystore'
-port='8888'
-pass='password'
+#!/bin/bash
 
 create_caCert() {
+    pass=$1
     echo "Creating a selfigned cert"
     openssl req -x509 -newkey rsa:1024 -keyout "$cakey" -passout pass:$pass -out "$cacert" -subj "/CN=CA"
 }
@@ -87,17 +85,18 @@ mkdir keys
 
 cakey="keys/ca_key.pem"
 cacert="keys/ca_cert.pem"
+ca_password="password"
 
 password="password"
 CN_String="<atn08sen>(StefanEng)/<dat12emu>(Erik Munkby)/<dic13sli>(Sara Lindgren)"
 
 
-create_caCert # Create CA-certificate.
+create_caCert $ca_password # Create CA-certificate.
 
 create_truststore stores/clienttruststore $password CN
 create_truststore stores/servertruststore $password CN
 
-# create_signed_keystore username password {user-type}.
+# create_signed_keystore username password user-type.
 # creates a keystorefile named {username} signed by CA with CN={user-type}.
 
 create_signed_keystore clientkeystore password user
