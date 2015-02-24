@@ -70,7 +70,18 @@ password="password"
 CN_String="<atn08sen>(StefanEng)/<dat12emu>(Erik Munkby)/<dic13sli>(Sara Lindgren)"
 
 
-create_caCert
-create_truststore stores/test_store $password CN
-create_keystore stores/test_keystore $password "$CN_String" key_pair
-create_and_sign_request keys/certreq.pem keys/signedcert.pem $password stores/test_keystore key_pair
+create_caCert # Create CA-certificate.
+
+create_truststore stores/clienttruststore $password CN
+create_truststore stores/servertruststore $password CN
+
+create_keystore stores/clientkeystore $password "$CN_String" key_pair
+create_and_sign_request keys/clientcertreq.pem keys/clientsignedcert.pem \
+                        $password stores/clientkeystore key_pair
+
+#create_caCert # Create a new missmathing CA_cert.
+
+create_keystore stores/serverkeystore $password "myserver" server_keys
+create_and_sign_request keys/servercertreq.pem keys/serversignedcert.pem \
+                        $password stores/serverkeystore server_keys
+
