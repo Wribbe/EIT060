@@ -1,0 +1,50 @@
+UMTS, extent of nonrepudation
+buffer overflow, unsafe functions, return address, buffer size
+spoofing attack, prevention, detection
+WEP, confidentiality, integrity, authentication
+UID, real, effective, Linux
+policy conflict, groups, Linux vs Windows
+difference, Bell-LaPalda, Biba
+ESP-package, encryption, ip-header, tunnel mode, transport mode
+firewall, packet filter, stateful packet filter
+orange book vs Common criteria, product functionality, product assurance
+SSL, 3x2 keys, Client, Server, CA
+Needham-Schroeder, security flaw
+Kerberos
+cryptographic strength, empirically secure, provably secure, unconditionally secure
+Birtday paradox
+Messenger Authentication Code (MAC)
+FFR (biometric systems)
+inference (statistics database)
+Chinese wall security model.
+
+diff, access control list, capabilities
+drwxrwxrwt vs drwxrwxrwx
+Orange Book vs ITSEC vs Common Criteria: functionality, assurance -> products
+replay attack, protection in SSL handshake
+Encrypt Key Exchange (EKE), omit password, modified EKE
+ESP header, ?not encrypted in IPsec transport mode
+IDS (Intrusion Detection System), missuse detection, anomaly detection
+IDS (Intrusion Detection System) vs honeypot: false negatives, false positives
+Biba -> !x(clean, dirty)
+RSA, public modulus, public exponent, break-find private exponent
+Diffie-Hellman, !desc(), !desc(man in the middle), !desc(stop Diffie-Hellman man in the middle)
+!diff(/etc/passwd, /etc/shadow)
+!diff(LM, NTLM)hashes.
+!diff(Linux, Windows)salt use
+!expl(random salt) -> protection time-memory attack
+!defi(both entries, channel, authenticated)
+!expl(network authenticated) -> UMTS
+!expl(server authentication, SSL) -> RSA as handshake
+!expl(Controlled Invocation)
+!expl(HMAC)
+!expl(Chinese Wall Model)
+!expl(Spoofing Attack)
+!expl(Canary Value)
+
+!expl(benefit known randomness) -> [initialization vectors (IV), salt, nonce]
+!expl(lack of authentication of client) -> SSL/TLS webpage
+!desc(two security differences) -> [LM,NTLM]
+!desc(ss-property, *-property, ds-property) -> Bell-LaPadula
+!desc(canary value) -> detecting a buffer overflow attack
+!desc(buffer overflow prevention)
