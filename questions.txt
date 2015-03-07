@@ -31,7 +31,7 @@ RSA, public modulus, public exponent, break-find private exponent
 Diffie-Hellman, !desc(), !desc(man in the middle), !desc(stop Diffie-Hellman man in the middle)
 !diff(/etc/passwd, /etc/shadow)
 !diff(LM, NTLM)hashes.
-!diff(Linux, Windows)salt use
+!diff(Linux vs Windows) -> salt use
 !expl(random salt) -> protection time-memory attack
 !defi(both entries, channel, authenticated)
 !expl(network authenticated) -> UMTS
@@ -48,3 +48,27 @@ Diffie-Hellman, !desc(), !desc(man in the middle), !desc(stop Diffie-Hellman man
 !desc(ss-property, *-property, ds-property) -> Bell-LaPadula
 !desc(canary value) -> detecting a buffer overflow attack
 !desc(buffer overflow prevention)
+!diff(tunnle vs transport)-mode ->  IPsec
+!expl(IPsec protects, replay attacks)
+!diff(anomaly, missuse)-detection -> IDS
+!diff(Orang book vs ITSEC vs Common Creteria) -> [functionality, assurance]
+!expl(WEP,CRC-32,ICV,RC4) -> integrity protection
+!expl(attacker chosen challenge) -> [[TMTO,MITM]-attack],HMAC]
+!expl(known challenge not sufficient) -> TMTO-attack
+!expl(challenge,HMAC,random number addition) -> change in protocol security 
+!expl(startpoint,endpoint,function) -> [TMTO, rainbow]-tables
+!desc(largest password can be broken, online attack) -> [T=2^24,M=2^24]
+!expl(PBKDF2()) -> improved security of protocol
+!expl([primage,second preimage, collision]-resistance]) -> n-bit hash function
+!desc(inputs <-> collision) -> n-bit hash function
+!desc(inputs <-> second preimage) -> n-bit hash function
+!expl(ruid) -> process executes rwsrwxrwx alice:root prog
+!expl(euid) -> process executes rwsrwxrwx alice:root prog
+!expl(delete permissions) -> -rwsrwzrwx alice:root prog
+!expl(listing of new non-exec file) -> umask 027
+!expl(x) -> -rwsrwxrwx
+!desc(Reference monitor)
+!desc(Clark-Wilson)
+!desc(CBS mode)
+!desc(Security descriptor)
+!desc(inode)
