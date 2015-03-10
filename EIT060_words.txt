@@ -1,0 +1,13 @@
+dete detect
+corr correct
+inte intentional
+rand random
+mod modifications
+trans transmission
+ever everything
+supp supposed
+exs examples
+achi achieve
+mess message
+funcs functions
+auth authentication
