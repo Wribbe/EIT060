@@ -57,7 +57,7 @@ Diffie-Hellman, !desc(), !desc(man in the middle), !desc(stop Diffie-Hellman man
 !expl(WEP,CRC-32,ICV,RC4) -> integrity protection
 !expl(attacker chosen challenge) -> [[TMTO,MITM]-attack],HMAC]
 !expl(known challenge not sufficient) -> TMTO-attack
-!expl(challenge,HMAC,random number addition) -> change in protocol security 
+!expl(challenge,HMAC,random number addition) -> change in protocol security
 !expl(startpoint,endpoint,function) -> [TMTO, rainbow]-tables
 !desc(largest password can be broken, online attack) -> [T=2^24,M=2^24]
 !expl(PBKDF2()) -> improved security of protocol
@@ -80,9 +80,9 @@ Diffie-Hellman, !desc(), !desc(man in the middle), !desc(stop Diffie-Hellman man
 #--- Lecture #1 ---
 
 !diff(ITSEC vs Clark and Wilson vs Oragne Book) -> Integrity
-!answ(ITSEC: prevent unauthorized writing, 
-      Clark and Wilson: never possible to destroy/corrupt co. assets or data, 
-      Organge book: Statebased\, exists when data == source and never exposed to alteration or destruction) 
+!answ(ITSEC: prevent unauthorized writing,
+      Clark and Wilson: never possible to destroy/corrupt co. assets or data,
+      Organge book: Statebased\, exists when data == source and never exposed to alteration or destruction)
 
 !desc(Integrity) -> communications
 !answ(dete. and corr. inte. or rand. mod. in trans.)
@@ -90,5 +90,115 @@ Diffie-Hellman, !desc(), !desc(man in the middle), !desc(stop Diffie-Hellman man
 !desc(Integrity) -> general case
 !answ(ever. should be as it is supp. to be.)
 
-!desc(four ways to achi. integerity) 
+!desc(four ways to achi. integerity)
 !answ(CRCs, hash funcs., Mess. Auth. Codes, digi. sigs.)
+
+!expl(Accountability) -> Orange Book
+!answ(aduit, possible to trace security actions to responsible party)
+
+!expl(Nonrepudiation of-[ origin, receipt])
+!answ(Origin: can't deny sending information,
+      Reciept: can't deny receiving information)
+
+
+#--- Lecture #2 - #3 (13*4 = 52 slides) ---
+#layout:
+#  * Cryptography
+#    * Keys
+#      - symmetric
+#      - public
+#      * security
+#        - RSA
+#    * Primitives
+#    * Encryption strength
+#    * Plain- and cipher-text
+#    * Ciphers
+#      - Vigenere
+#      - substitution
+#      - one-time-pad
+#      - stream
+#      - block
+#    * Hash functions
+#    * Message Authentication Codes (MAC)
+#      - properties
+#    * Signatures
+#    * Certificates
+
+!expl([Empirically,Provably,Unconditionally]-secure -> Encryption mechanics strength.
+!answ(Empirically: No one has broken it for some time,
+      Provably: Breaking at least as hard as other common problem,
+      Unconditionally: Secure with unlimited data-power)
+
+!desc([Plain,Cipher]-text)
+!answ(Plain: the text that user wants to send,
+      Cipher: the actual text that gets sent)
+
+!expl(Stream cipher)
+!answ(Short random key is expanded to long (pseudo)random bit sequence)
+
+!expl(Block cipher)
+!answ(Substitution with larger tables\, map text- to cipher-symbols with math)
+
+!diff(ECB vs CBC) -> cipher encryption.
+!answ(Electronic Code Book: each block encrypted in isolation\, redundancy,
+      Cipher Block Chaining: previous block input to current\, redundancy gone)
+
+!expl(Public key- or asymmetric-cryptography) -> encryption and decryption
+!answ(2x keys\, public=encrypt\, private=decrypt)
+
+!expl(Public key- or asymmetric-cryptography) -> digital signatures
+!answ(2x keys\, public=verification\, private=signing)
+
+!desc(Defining properties of a hash funciton)
+!answ(Easy to compute\, compression arbitrary to fixed length)
+
+!desc(Preimage resistance / one-way) -> Hash function
+!answ(infeasible to reconstruct x from y h(x)=y)
+
+!desc(Second preimage resistance / weak collision resistance) -> Hash function
+!answ(given x and h(x)\, infeasible to find x' such that h(x)=h(x'))
+
+!desc(Collision resistance / strong collision resistance) -> Hash function
+!answ(infeasible to find x, x' such that h(x)=h(x'))
+
+!desc(keyed hash function) -> MAC
+!answ(Computed from message and key)
+
+!desc(Purpose of MAC?)
+!answ(Proves integrity of message)
+
+!expl(Ease of computation,Compression,Computation resistance) -> MAC properties
+!answ(Ease of computation: given k and x, h_k(x) easy to compute,
+      Compression: arbitrary input length to fixed output length,
+      Computation resistance: given pairs x_p, h_k(x_i) infeasible to compute
+                              pair (x, h_k(x)) with new message x)
+
+!expl(nonrepudiation)
+!answ(An action should be tied to a unique individual)
+
+!desc(Public verification key) -> RSA signatures
+!answ(n,d)
+
+!desc(Private signing key) -> RSA signatures
+!answ(e,p,q)
+
+!desc(Signing) -> RSA signatures
+!answ(Hash message M: m=h(M) and sign y s= m^e mod n)
+
+!desc(Verification given s and m) -> RSA signatures
+!answ(check if s^d = m mod n)
+
+!diff([symmetric vs asymmetric]-algorithms) -> speed
+!answ(symmetric are ~ x1000 faster)
+
+!diff([symmetric vs asymmetric]-algorithms) -> security
+!answ(Asymmetric key of 1024 ~= 80 symmetric)
+
+!diff(MAC vs digital signaturs) -> keys
+!answ(MAC: secret key can sign and verify,
+      Signature: One can sign all can verify)
+
+!expl(MAC, Digital Signatures) -> prerequisites for usage
+!answ(MAC: pre-shared key,
+      Digital Signatures: digital certificates)
+
