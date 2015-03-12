@@ -202,3 +202,70 @@ Diffie-Hellman, !desc(), !desc(man in the middle), !desc(stop Diffie-Hellman man
 !answ(MAC: pre-shared key,
       Digital Signatures: digital certificates)
 
+# --- lecture 4 - Indentification and Authentication (10x4 + 1 = 41) ---
+#layout: 
+#* Username
+#* Password 
+#  - password file
+#  - salting
+#* Attacks
+#  - spoofing
+#  - brute force
+#  - dictionary
+#  - time memory trade off (TMTO)
+#  - rainbow table
+#* Biometrics
+#  - False Acceptance Rate
+#  - False Rejection Rate
+
+!desc(unilateral authentication) -> username and password
+!answ(System can authenticate user but not reverse)
+
+!desc(prevention methods) -> spoofing attacks
+!answ(Trusted path (CTRL+ALT+DEL)\, mutual authentication\, one time passwords)
+
+!desc(detection methods) -> spoofing attacks
+!answ(Information about previous login sessions\, display number of failed logins)
+
+!expl(brute force attack) 
+!answ(try entering or hashing all possible passwords)
+
+!desc(prevention methods) -> brute force attacks
+!answ(have a slow hash function)
+
+!expl(dictionary attack)
+!answ(try combinations of different words from dictionaries) 
+
+!expl(time-memory tradeoff attack)
+!answ(bruteforce with a precomputed table in memory for faster lookup)
+
+!desc(phases of a TMTO)
+!answ(1: preprocessing phase,
+      2: realtime/online phase)
+
+!desc(reduction function) -> TMTO
+!answ(Not actual reverse of hash\, map hashvalue to plaintext)
+
+!expl(the matrix stopping rule) -> TMTO
+!answ(mt^2=N where N is the search space size)
+
+!desc(realtime phase) -> TMTO
+!answ(1: Use R(h(R(h(x))))... on hash until endpoint is found,
+      2: Iterate over h\->R cycle until h(x) is encounter\, previous x is password)
+
+!desc(Realtime computation needed) -> TMTO
+!answ(T=t^2)
+
+!desc(Preprocessing time needed) -> TMTO
+!answ(P=N)
+
+!desc(Memory needed) -> TMTO
+!answ(M=mt)
+
+!diff(Rainbow Tables vs TMTO)
+!answ(Rainbow tables use different R-func for each link in a chain) 
+
+!desc(advantages) -> salting passwords
+!answ(1: slows dictionary attacks with several passwords at once,
+      2: Attacker needs Rainbow table for each salt,
+      3: same password different hash)
