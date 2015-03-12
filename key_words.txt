@@ -202,10 +202,10 @@ Diffie-Hellman, !desc(), !desc(man in the middle), !desc(stop Diffie-Hellman man
 !answ(MAC: pre-shared key,
       Digital Signatures: digital certificates)
 
-# --- lecture 4 - Indentification and Authentication (10x4 + 1 = 41) ---
-#layout: 
+# --- lecture 4 - Indentification and Authentication (10*4 + 1 = 41) ---
+#layout:
 #* Username
-#* Password 
+#* Password
 #  - password file
 #  - salting
 #* Attacks
@@ -227,14 +227,14 @@ Diffie-Hellman, !desc(), !desc(man in the middle), !desc(stop Diffie-Hellman man
 !desc(detection methods) -> spoofing attacks
 !answ(Information about previous login sessions\, display number of failed logins)
 
-!expl(brute force attack) 
+!expl(brute force attack)
 !answ(try entering or hashing all possible passwords)
 
 !desc(prevention methods) -> brute force attacks
 !answ(have a slow hash function)
 
 !expl(dictionary attack)
-!answ(try combinations of different words from dictionaries) 
+!answ(try combinations of different words from dictionaries)
 
 !expl(time-memory tradeoff attack)
 !answ(bruteforce with a precomputed table in memory for faster lookup)
@@ -263,16 +263,16 @@ Diffie-Hellman, !desc(), !desc(man in the middle), !desc(stop Diffie-Hellman man
 !answ(M=mt)
 
 !diff(Rainbow Tables vs TMTO)
-!answ(Rainbow tables use different R-func for each link in a chain) 
+!answ(Rainbow tables use different R-func for each link in a chain)
 
 !desc(advantages) -> salting passwords
 !answ(1: slows dictionary attacks with several passwords at once,
       2: Attacker needs Rainbow table for each salt,
       3: same password different hash)
 
-# --- lecture 5 - Access Control (4x6 + 3 = 27) ---
+# --- lecture 5 - Access Control (4*6 + 3 = 27) ---
 #layout:
-#*Subject 
+#*Subject
 #*Objects
 #*Access operations
 #*Access control structures
@@ -367,3 +367,50 @@ Diffie-Hellman, !desc(), !desc(man in the middle), !desc(stop Diffie-Hellman man
 
 !expl(Controlled invocation) -> users access rights
 !answ(supply elevated actions through API that does predefined set of operations)
+
+#--- Lecture 6 - Windows security (4*9 = 36) ---
+#layout:
+#*Design motivation
+#*Login procedure(simplified)
+#*Related files
+#*Accounts
+#  - local
+#  - domain
+#*Hashes
+#  - NTLM
+#  - LM
+#*Access
+#  - control
+#  - tokens
+#  - rights
+#  - mask
+#  - control / Network shares
+#*Identification
+#  - SID
+#  - Security Descriptor
+#    - DACAL
+#    - SACL
+#*Privileges
+#  - user account control
+#  - mandatory access control
+
+!desc(What LSA handles) -> Windows Logon
+!answ(Local Security Authority handles log in\, password policies\,
+      privileges\, audition preferences etc)
+
+!expl(SAM) -> Passwords
+!answ(Password hashes are stored in SAM (Security Accounts Manager))
+
+!desc(What is stored in the SAM?)
+!answ(Username\, Full name\, Expiration date\, password dates\, logon hours\,
+      profile path and logon script name\, home directory\, groups)
+
+!desc([Local vs Domain]-accounts) -> authentication protocol
+!answ(Local: NTLM,
+      Domain: Kerberos V5)
+
+!desc(NTLM vs Kerberos V5) -> domain authentication
+!answ(Kerberos: mutual authentication\,
+      NTLM: unilateral authentication)
+
+
