@@ -269,3 +269,101 @@ Diffie-Hellman, !desc(), !desc(man in the middle), !desc(stop Diffie-Hellman man
 !answ(1: slows dictionary attacks with several passwords at once,
       2: Attacker needs Rainbow table for each salt,
       3: same password different hash)
+
+# --- lecture 5 - Access Control (4x6 + 3 = 27) ---
+#layout:
+#*Subject 
+#*Objects
+#*Access operations
+#*Access control structures
+#*Intermediate controls
+
+!expl(subject,object,access operation,reference monitor) -> Access Control
+!answ(subject: active ex. users and processes,
+      object: passive ex. files and resources,
+      access operation: ex. read and write,
+      reference monitor: grants/denies access)
+
+!diff(execute vs append vs read vs write) -> observe and alter in Bell-LaPadula
+!answ(execute: [ ] [ ],
+      append: [ ] [x],
+      read: [x] [ ],
+      write: [x] [x])
+
+!expl(read,write,execute) -> File in Linux
+!answ(read: read file,
+      write: write file,
+      execute: execute program)
+
+!expl(read,write,execute) -> Directory in Linux
+!answ(read: list directory,
+      write: create/delete/rename files,
+      execute: search directory)
+
+!expl([discretionary,mandatory]-{access control}) -> General security policy
+!answ(discretionary: owner of object decides access rights,
+      mandatory: system decides access rights)
+
+!expl([discretionary,mandatory]-{access control}) -> Orange Book
+!answ(discretionary: restrict access based on identity of subject,
+      mandatory: restrict access based on information sensitivity of object
+                 and authorization level of subject)
+
+!diff(Capabilities vs Access Control List) -> Access Control Matrix
+!answ(capabilities: stor access rights with subjects,
+      access control list: stor access rights with objects)
+
+!expl(drawbacks) -> capabilities and access control list
+!answ(capabilities: difficult to determine who has access to given object,
+      access control list: difficult to determine single users permission)
+
+!expl(Principle of least privilege)
+!answ(a subject should only have access to necessary resources)
+
+!expl(Separation of duties)
+!answ(critical security functions must be preformed by more than one user)
+
+!expl(Role-base access control)
+!answ(derive access from users current role)
+
+!desc(RBAC0)
+!answ(contains user\, roles\, permission and session)
+
+!desc(RBAC1)
+!answ(allows inheritance)
+
+!expl(mutually exclusive roles, cardinality, prerequisite) -> RBAC2
+!answ(mutually exclusive roles: separation of duties,
+      cardinality: restrictions such as one manager per project or
+                   max number of roles per user,
+      prerequisite: need to have a previous role possible to implement
+                    principle of least privileged)
+
+!desc(RBAC3)
+!answ(RBAC1+RBCA2 combining inheritance with constraints)
+
+!expl(domination) -> Lattice of security levels
+!answ(b dominates a if a <= b\, a is a subset of b)
+
+!expl(least upper bound: u) -> Lattice of security levels
+!answ(least upper bound is the nearest element that contains the elements\,
+      if a={x} and b={z} then u={x,z})
+
+!expl(greatest lower bound: l) -> Lattice of security levels
+!answ(greatest lower bound is nearest common sub-element\,
+      if a={x,y} and b={x,z} then l={x})
+
+!expl(Reference monitor)
+!answ(abstract machinery that controls all access to objects)
+
+!expl(Security kernel)
+!answ(hardware\, software etc that implements reference monitor concept)
+
+!expl(Trusted computing base)
+!answ(set of all protection mechanisms enforcing security policy)
+
+!desc(requirements) -> Reference monitor
+!answ(Tamper proof\, always invoked\, allow analysis by being small)
+
+!expl(Controlled invocation) -> users access rights
+!answ(supply elevated actions through API that does predefined set of operations)
