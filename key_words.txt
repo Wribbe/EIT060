@@ -663,3 +663,48 @@ Diffie-Hellman, !desc(), !desc(man in the middle), !desc(stop Diffie-Hellman man
       noexec: no binaries can be exetued,
       nodev: no devices can be accessed
       ro: read only)
+
+#--- lecture 8a - Security Evaluation (19) ---
+#layout:
+#*Purpose
+#*Who?
+#*Orange Book (TCSEC)
+#  - ideas
+#  - evaluation class
+#  - security divisions
+#  - classes
+#  - limitations
+#*ITSEC
+#*Common Criteria
+#  - key concepts
+#  - evaulation assurance levels
+#  - other aspects
+#*Certified == Secure?
+
+!defi(Evaluation, Certification, Accreditation) -> Security Evaluation
+!answ(Evaluation: product is as secure as it claims,
+      Certification: suitable for given application,
+      Accreditation: deciding that a product will be used in a
+                     given application)
+
+!desc(what is combined in orange books evaluation classes)
+!answ(functionality (security features) and assurance requirements)
+
+!desc(Acronym SMIAADC) -> Evaluation class Orange book
+!answ(Security policy -- Mandatory and/or Discretionary -access control\,
+      Marking of objects -- labels related to security\,
+      Identification and authentication\,
+      Accountability -- security logs\,
+      Assurance -- security related to design and architecture\,
+      Documentation -- documentation regarding design and guiding users\,
+      Continuous protection -- the possibilities to alter/tamper the security
+                               system)
+
+!defi(4 security division) -> Orange Book
+!answ(D: Minimal protection,
+      C: Discretionary protection,
+      B: Mantadory protection,
+      A: Verified protection)
+
+# TO BOOOOORING
+
