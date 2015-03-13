@@ -534,3 +534,132 @@ Diffie-Hellman, !desc(), !desc(man in the middle), !desc(stop Diffie-Hellman man
 
 !desc(SACL integrity level) -> write operations
 !answ(Subjects integrity dominates objects integrity\, checked before DACL)
+
+# -- UNIX (and Linux) Security (34) --
+#layout:
+#*Crypt
+#  - Traditional
+#  - MD5
+#  - bcrypt
+#*Password storage
+#  - Authentication
+#  - /etc/password
+#  - /etc/shadow
+#*Access Control
+#  - Users
+#  - UIDs for Processes
+#  - groups
+#  - check order
+#  - directory permissions
+#  - umask
+#  - chown
+#  - chgrp
+#*Permissions
+#  - chmod
+#  - setuid & setgdi
+#    - programs
+#    - directories
+#  - important SUID programs
+#  - sticky bit
+#*Filesystem
+#  - inode
+#  - mounting
+#  - searchpath
+
+!expl(relation UID and name) -> UNIX access level
+!answ(Accounts with different name but same ID are treated the same)
+
+!desc(superuser UID) -> UNIX
+!answ(0)
+
+!expl(storage of UID) -> UNIX
+!answ(/etc/password)
+
+!diff([real vs effective]-{user ID}
+!answ(real: ID of the logged in principal (only root can change),
+      effective: ID used for access control\, can be changed to anything
+      by root and can be changed back to real userID by anyone)
+
+!expl(Usage of groups) -> multiple ID access to file
+!answ(Can't associate multiple IDs with file\, put all IDs in group\,
+      give file access to group)
+
+!diff(primary vs other) -> group storage
+!answ(primary: /etc/passwd,
+      other: /etc/group)
+
+!desc(traditonal crypt) -> password hashing UNIX
+!answ(DES-based\, max 8 char + 12bit salt\, problem with short salt
+      and password\, fast)
+
+!desc(MD5 crypt) -> password hashing UNIX
+!answ(longer password\, 1000 iter slow\, 12-48bit salt\,
+      problem with constant cost)
+
+!desc(bcrypt) -> password hashing UNIX
+!answ(long salt and password\, variable cost)
+
+!diff(/etc/shadow vs /etc/password) -> stored info
+!answ(shadow: hashed password + various dates,
+      passwd: UID\, GID\, home directory\, loginshell)
+
+!expl(Discretionary access control) -> Unix Access Control
+!answ(owner of file can change permissions)
+
+!desc(the three categories) -> UNIX access control
+!answ(User(owner)\, Group, Other(world))
+
+!desc(the three access rights) -> UNIX access control
+!answ(Read\, Write\, Execute)
+
+!desc(order of checking) -> UNIX access control
+!answ(Owner group other)
+
+!diff(read vs write vs execute) -> directory permissions in UNIX
+!answ(read: list the directory\,
+      write: delete\, rename and insert files,
+      execute: access directory and its files)
+
+!diff(4 vs 2 vs 1) -> chmod permissions
+!answ(4: read,
+      2: write,
+      1: execute)
+
+!expl(setuid and setgid) -> UNIX programs
+!answ(is controlled invocation\, temporarily change access right to owners
+      by escalation\, x replaced by s)
+
+!expl(setuid and setgid) -> UNIX directories
+!answ(setuid usually ignored on directories\, setgid on dir makes new
+      files in dir part of dir group (easier file sharing))
+
+!desc(how to set uid and gid) -> chmod
+!answ(uid: chmod 4XXX file,
+      gid: chmod 2XXX file)
+
+!desc(sticky bit) -> UNIX access control
+!answ(previous for keeping code in memory on exit now used to signal
+      that owner, dir owner and su can delete file)
+
+!desc(Default Access Rights (umask)) -> UNIX access control
+!answ(umask specifies default excluded permissions\, final access
+      = full acces AND_NOT(umask)\, ex 0027 removes write from group
+      and all from other)
+
+!expl(measures to avoid root escalation) -> chown and chgrp
+!answ(only root can change owner, setu/gid bits removed on changed owner\,
+      anyone can change group to own group but setu/gid bits removed)
+
+!desc(contents of inode) -> UNIX file system
+!answ(access rights\, owner\, group\, last acces/mod/change\,
+      size of file\, data block pointers more info through (stat))
+
+!desc(solutions to race condition) -> file creation
+!answ(unpredictable filename\, O_EXCL flag (don't open if exists)\,
+      check symbolic link lstat())
+
+!diff(nosuid vs noexec vs nodev vs ro) -> mounting file systems UNIX
+!answ(nosuid: turn off SUID and SGID bits,
+      noexec: no binaries can be exetued,
+      nodev: no devices can be accessed
+      ro: read only)
