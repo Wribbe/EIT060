@@ -310,8 +310,8 @@ Diffie-Hellman, !desc(), !desc(man in the middle), !desc(stop Diffie-Hellman man
                  and authorization level of subject)
 
 !diff(Capabilities vs Access Control List) -> Access Control Matrix
-!answ(capabilities: stor access rights with subjects,
-      access control list: stor access rights with objects)
+!answ(capabilities: store access rights with subjects,
+      access control list: store access rights with objects)
 
 !expl(drawbacks) -> capabilities and access control list
 !answ(capabilities: difficult to determine who has access to given object,
@@ -413,4 +413,124 @@ Diffie-Hellman, !desc(), !desc(man in the middle), !desc(stop Diffie-Hellman man
 !answ(Kerberos: mutual authentication\,
       NTLM: unilateral authentication)
 
+!desc(problem with NTLM hash)
+!answ(MD4 fast hash function\, no salt used)
 
+!desc(problem with LM hash)
+!answ(DES fast block cipher\,
+      no salt\,
+      password up to 14 no better than 7\,
+      no lowercase chars)
+
+!desc(Three parameters of authentication) -> Access Control
+!answ(Identity of subject\, type of access\, object security setting)
+
+!desc(Fields present in access token)
+!answ(User SID (identity of subject)\,
+      SIDs of groups the user is member of\,
+      privilege list\,
+      default DACL\,
+      Owner\,
+      Group\,
+      Miscellaneous)
+
+!diff([primary,impersonation]-{access token})
+!anws(primary: access token of user account associated with process,
+      impersonation: thread can execute in elevated context)
+
+!expl(S-R-I-SA-SA-SA-N) -> Security Identifier (SID)
+!answ(S: letter S\,
+      R: revision number (1)\,
+      I: identifier authority (5 for user accounts)\,
+      SA: subauthority (specifies domain or computer\, usually 3 groups),
+      N: relative identifier\, incremented for each new principal)
+
+!desc(S-1-1-0) -> SID
+!answ(Everyone, a group that includes all users)
+
+!desc(S-1-5-SA-SA-SA-501) -> SID
+!answ(Guest account no password)
+
+!desc(S-1-5-SA-SA-SA-500) -> SID
+!answ(Administrator)
+
+!desc(operations, application, assignment access check) -> Privileges Windows
+!answ(operations: system related ex shut down,
+      application: applies to local computer,
+      assignment: can be assigned to both users and groups,
+      access check: access token check when try preform privileged operation)
+
+!diff(privileges vs access rights) -> Windows
+!answ(gives access to resources + tasks\, not objects\,
+      stored with subject\,
+      admin assigns privileges)
+
+!desc(Application scope of privileges)
+!answ(Applies to local computer)
+
+!diff(Resources vs Objects) -> Windows
+!answ(All resources are objects\, ex files\, folders\, printers)
+
+!desc(Securable object) -> Objects Windows
+!answ(any object that can be shared\, might include security descriptor)
+
+!desc(Fields) -> Security Descriptor
+!answ(Owner SID\,
+      Primary group SID\,
+      DACL\,
+      SACL)
+
+!desc(Purpose of DACL) -> Windows
+!answ(Identify allowed or denied access to object)
+
+!desc(Contents of DACL) -> Windows
+!answ(List of access control entries (ACEs) where a SID allowed/denied access)
+
+!diff(non existent vs empty) -> DACL
+!answ(non existent: everyone full control,
+      empty: everyone denied)
+
+!expl(Access precedence) -> DACL
+!answ(deny has higher precedence than allow)
+
+!expl(DACL search routine)
+!answ(go through ACEs until all allowed or any denied)
+
+!expl(Result user denied w group w+r) -> DACL
+!answ(denied w+r)
+
+!desc(Access Control) -> Network Shares
+!answ(two ACLs too access file\, 1x on share\, 1x on file)
+
+!diff(Capabilities vs Access Control Lis)
+!answ(capabilities: store access right with subject\, privileges,
+      access control list: store access rights with object\, access rights)
+
+!desc(restricted token) -> restricted context
+!answ(Applications can start process with restricted token\,
+      Process can start process or thread with restricted token\,
+      can be primary or impersonation token)
+
+!expl(Type of restrictions) -> restricted context
+!answ(Remove privileges\, set deny-only attributes to SIDs\,
+      Specify restricting SID)
+
+!desc(how to) -> restricting a token
+!answ(use group SID as deny only and add restricted SID\,
+      two access checks\, both must allow access\, otherwise denied)
+
+!desc(User Account Control) -> number and type of tokens
+!answ(administrators get 2x tokens\, user and admin\,
+      user has to acknowledge use of admin token)
+
+!desc(Mandatory access control and levels) -> Windows
+!answ(Integrity Control with [untrusted,low,medium,high,system]-integrity\,
+      where medium is normal user with UAC)
+
+!expl(SACL and its defaults) -> Windows mandatory access control
+!answ(object can store integrity level in SACL\,
+      access token < medium: integrity = token,
+      access token >= medium: integrity = medium)
+
+!desc(SACL integrity level) -> write operations
+!answ(Subjects integrity dominates objects integrity\, checked before DACL)
