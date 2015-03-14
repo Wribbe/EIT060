@@ -708,3 +708,91 @@ Diffie-Hellman, !desc(), !desc(man in the middle), !desc(stop Diffie-Hellman man
 
 # TO BOOOOORING
 
+# --- lecture 8b-9a - Key Establishment and Remote Authentication ---
+#layout:
+#*Remote authentication
+#*Challenge response protocol
+#*Key establishment and authentication
+#  - key transport
+#  - key agreement
+#  - implicit key authentication
+#  - key confirmation
+#  - explicit key authentication
+#*Protocols
+#  - Authenticated key exchange protocol 2
+#  - Pre-shared keys
+#  - Diffie-Hellman
+#    - prolblem
+#  - Station to station
+#  - Password based
+#  - Trusted third party
+#  - Needham-Schroeder
+#  - Kerberos
+
+!desc(nonce) -> channange response protocol
+!answ(number used once)
+
+!diff([long term, session]-keys) -> key establishment
+!answ(long term: rarely or never changed,
+      session: used on limited amount of data)
+
+!diff(key-[ transport, agreement] -> Key establishment
+!answ(transport: one party transfers to other party\, also key distribution,
+      agreement: both parties contributes to generation of secret key)
+
+!expl(implicit key authentication) -> Key establishment
+!answ(one party knows that no one besides specifically identified
+      second party has access to secret key)
+
+!expl(key confirmation) -> Key establishment
+!answ(1st party assured of 2nd party has possession of secret identity
+      might be hidden)
+
+!expl(explicit key authentication) -> Key establishment
+!answ(implies both implicit key authentication and key confirmation)
+
+!desc(problems) -> pre-shared keys
+!answ(for n keys everyone has to store n-1 keys and distribute all
+      the needed keys securely to the rest of the system)
+
+!desc(Diffie-Hellman protocol)
+!answ(key agreement protocol with no advanced shared secret)
+
+!desc(mathematical problem that diffie-hellman is based on)
+!answ(discrete logarithm problem)
+
+!expl(weakness of the diffie-hellman protocol)
+!answ(there is no key authentication\, susceptible to man in the middle
+      attacks)
+
+!desc(station-to-station protocol solves diffie-hellman problem)
+!answ(adds authentication by signature key\, public key infrastructure needed)
+
+!desc(basis of Encrypted Key Exchange)
+!answ(encrypt temp public K_a with passw\, use K_a to encrypt session key)
+
+!desc(Needham-Schroeder protocol) -> key transport
+!answ(builds on third party and adds nonces to avoid replay attacks\,
+      second party responds with nonce-1)
+
+!expl(solved problem) -> Needham-Schroeder
+!answ(the nonce hinders trivial replay attacks)
+
+!desc(remaining problem) -> Needham-Schroeder
+!answ(freshness of session key unknown\, one broken session key enables
+      replay attacks)
+
+!expl(solved problem) -> Kerberos
+!answ(extend Needham-Schroeder with timestamps and limited lifetime for K_ses)
+
+!expl(remaining problem) -> Kerberos
+!answ(implementation errors, synchronous clocks, must be online,
+      trust in servers and poor passwords)
+
+!desc(exchange KAS,TGS,client_A,ServerB) -> Kerberos
+!answ(A=>KAS: [nonce,A,B],
+      KAS=>A: [eK_as(nonce,K_atgs,L_1,TGS),eK_tgs(K_atgs,A,L_1)],
+      A=>TGS: [eKtgs(K_atgs,A,L_1),eK_atgs(A,T_a),B,n_a2],
+      TGS=>A: [eK_atgs(Kab,n_a2,L_2,B),eK_bs(K_ab,A,L_2)],
+      A=>B: [eK_bs(K_ab,A,L_2),e_Kab(A,T_a2)],
+      B=>A: eK_ab(T_a2))
