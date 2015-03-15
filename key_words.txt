@@ -1039,3 +1039,75 @@ answ(passive: only listen to traffic,
 !answ(anomaly: use statistics\, derivations and baselines to detect unusual
                behavior,
       misuse: use known attack signatures to identify a intrusion)
+
+# --- lecture 11 - Buffer overflow and SQL injections (28) ---
+!desc(buffer overflow attack)
+!answ(make trusted program execute arbitrary code by replacing its return
+      address with address pointing to arbitrary machine code in stack)
+
+# --- lecture 12 = Bell-LaPadula and other security models (41) ---
+#layout:
+#*models
+#  - Bell-LaPadula
+#    - tranquility
+#    *properties
+#      - *
+#      - ss
+#      - ds
+#    - drawbacks
+#  - Biba
+#    - subjects and objects
+#  - Chinese wall
+#  - Clark-Wilson
+
+!expl(the focus of Bell-LaPadula)
+!answ(confidentiality)
+
+!desc(types of access control and sub-levels)  -> Bell-LaPadula
+!answ(mandatory and discretionary with access control matrix and
+      multilevel security as sub-levels)
+
+!defi(B dominates A)
+!answ(B >= A)
+
+!desc(the three states of the state) -> security models
+!answ(current access set/matrix b (matrix with s-row o-col)\,
+      access matrix M\,
+      functions f\, state given by (b\,M\,f))
+
+!diff(f_-[s,c,o]) -> security model functions
+!answ(s: maximum security level,
+      c: current security level,
+      o: security level of object)
+
+!desc(ss-property) -> BellLaPadula
+!answ(mandatory access property that dictates that no user can read
+      higher level objects)
+
+!desc(complete and incomplete *-property) -> Bell-LaPadula
+!answ(incomplete: a mandatory access property that dictates that writing
+      from i higher to a lower object is not allowed,
+      complete: adds that if subject accesses several objects with
+      modifying access all other observable objects must have lower
+      or equal security level than modifiable objects)
+
+!desc(ds-property) -> Bell-LaPadula
+!answ(discretionary access control principle which states that a subject
+      can pass access permissions on to other users)
+
+!desc(tranquility) -> Bell-LaPadula
+!answ(never change access and security levels)
+
+!desc(drawbacks with access control and covert channels) -> Bell-LaPadula
+!answ(access: create low-level file that gets upgraded\, creator looses access,
+      covert: send information down through filenames)
+
+!desc(main focus of Biba model)
+!answ(integrity\, information flows downwards)
+
+!expl(simple integrity property (ss)) -> Biba
+!answ(not allowed to write up)
+
+#read the stars.
+!expl(integrity *-property) -> Biba
+!answ(not allowed to read down)
