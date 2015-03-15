@@ -796,3 +796,246 @@ Diffie-Hellman, !desc(), !desc(man in the middle), !desc(stop Diffie-Hellman man
       TGS=>A: [eK_atgs(Kab,n_a2,L_2,B),eK_bs(K_ab,A,L_2)],
       A=>B: [eK_bs(K_ab,A,L_2),e_Kab(A,T_a2)],
       B=>A: eK_ab(T_a2))
+
+#--- Lecture 9b-10 - Communications and Network Security (53) ---
+#layout:
+#*Attacks and threats
+#  - man in the middle
+#*TCP/IP
+#*Security layers
+#*SSL
+#  - protocol stack
+#  - operation
+#  * protocols
+#    - record
+#    - upper layer
+#    - handshake
+#  - key exchange
+#  * messages
+#    - client/server hello
+#    - certificate (client/server)
+#    - key exchange
+#*IPsec
+#  - transport
+#  - tunnle
+#*Authentication header
+#*Esp
+#  - header and trailer
+#  - packet
+#  * transport and tunnel
+#    - IPv4
+#    - IPv6
+#*Packet filter
+#  - default
+#  - stateful
+#*Deteciton
+#  - intrusion
+#  - anomaly
+#  - misuse
+#  - honeypot
+
+diff([passive ,active ]-attacker -> Network attacks
+answ(passive: only listen to traffic,
+     active: modify, delete and insert messages)
+
+!defi(data-[ integrity,, confidentiality, origin authentication]->Network attacks
+!answ(integrity: ensure contents of packet is intact,
+      confidentiality: data can only be read by intended party,
+      origin authentication: data origin is correct)
+
+!defi(Man-in-the-middle) -> Network attacks
+!answ(attacker intercepts and forwards modified traffic)
+
+!defi(replay) -> Network attacks
+!answ(non authorized data resent to gain same result)
+
+!defi(spoofing) -> Network attacks
+!answ(imitate a trusted sender)
+
+!defi(traffic analysis) -> Network attacks
+!answ(derive information trough patterns ex who is talking to who)
+
+!desc(four layers in TCP/IP)
+!answ(1: application layer (telnet,SSH,FTP),
+      2: transport layer (TCP,UPD),
+      3: network layer (IP)
+      4: data link layer)
+
+!expl(security at the application,transport,internet and data link layer)
+!answ(application: ex [PGP,Kerberos,SSH,etc]\, can meet exact application
+                   demands\, has to be designed for each application,
+      transport: ex [SSL/TLS]\, app dev can opt in/out\, current applications
+                 need modification,
+      internet: ex IPSec\, seamless security for applications\, difficult to
+                to apply on user or application basis,
+      data link: ex hardware encryption\, very fast\, dedicated links needed)
+
+!expl(detection) -> TCP packets
+!answ(TCP detects lost, out of order, duplicates etc)
+
+!expl(needs met) -> SSL
+!answ(strong cryptography\, entity authentication\, data integrity\,
+      confidentiality)
+
+!diff(SSL-[ record , handshake , change cipher spec , ssl alers ]-protocol) -> SSL Protocol Stack
+!answ(record: enables message confidentiality and integrity,
+      handshake: key authentication and negotiation,
+      change cipher spec: cipher suite update triggered by byte message,
+      alert protocol: send warning/errors)
+
+!desc(SSL operation)
+!answ(split to fragments <= 2^14 bytes\, for each fragment =>
+      compress => add MAC => encrypt => add header => send to TCP layer)
+
+!desc(record protocol actions and content) -> SSL protocol
+!answ(optional compression\, uses HMAC to compute MAC for packet\,
+      encrypts data and mac with negotiated cipher\, header consists of
+      content type\, major/minor version\, data length)
+
+!desc(purpose) -> SSL handshake protocol
+!answ(authenticate server to client\, algorithm establishment\, specify
+      encryption keys\, optionally authenticate client to server)
+
+!desc(SSL handshake overview)
+!answ(client => server: client hello,
+      server => client: [server hello,(certificate),(server key exchange),
+                         (certificate request),server hello done]
+      client => server: [(certificate),(client key exchange),
+                         (certificate verify),change cipher spec, finished]
+      server => client: [change cipher spec, finished])
+
+!diff(RSA,[Ephemeral, Fixed, Anonymous]-{Diffie-Hellman}) -> key exchange methods
+!answ(RSA: client generates and encrypts secret with server public RSA-k (cert),
+      Ephemeral: client server negotiate secret through diffie-hellman and
+                 values are signed with private keys (cert),
+      Fixed: values stored in certificate (cert),
+      Anonymous: exchange without authentication\, opens up for man in the
+                 middle attacks (no cert))
+
+!expl(Usage of random numbers) -> premaster secret
+!answ(known seed to PRF\, both parties can participate in generation\,
+      harder to do replay attacks)
+
+!desc(Man in the middle attack) -> SSL
+!asnw(intermediate server opens up a SSL connection to remote and returns
+      a correct trusted cert to user\, channels are user <-> intermediate <->
+      remote\, when intermediate should just forward)
+
+!desc(benefits) -> IPsec
+!answ(all IP datagrams covered\, no need to change applications\,
+      not visible to users)
+
+!diff(IPv-[4 vs 6]) -> IPsec
+!answ(4: optional, 6: mandatory)
+
+!desc(two major security mechanism) -> IPsec
+!answ(encapsulating security payload (ESP) and
+      authentication header (AH))
+
+!desc(Security Associations (SA)) -> IPsec
+!answ(identified by security parameters index (SPI) which includes ex
+      sequence number counter\, algorithms\, keys\, tunnel/transport)
+
+!diff(IPsec-[ transport , tunnel ]-mode) -> IPsec protocol mode
+!answ(transport: end to end security\, endpoint IPsec-aware\,
+                 includes selected headers fields and IP datagram payload,
+      tunnel: router to router security\, non iPsec-aware endpoint ok\,
+              initial IP datagram encapsulated inside second datagram =>
+              hidden from intermediate)
+
+!expl(client hello) -> RSA SSL handskake
+!answ(random 28 bytes to calculate master secret\, cipher suit and compression
+      algorithm suggestion)
+
+!expl(server hello) -> RSA SSL handskake
+!asnw(random 28 bytes to calculate master secret\, pick cipher suit
+      implemented by both client and server also pick compression
+      algorithm to use)
+
+!expl(certificate (server)) -> RSA SSL handskake
+!answ(send servers certificate chain to client)
+
+!expl(server key exchange) -> RSA SSL handskake
+!answ(not used in conjunction with RSA)
+
+!expl(certificate request (server)) -> RSA SSL handskake
+!answ(server sends request for client to identify itself)
+
+!expl(server hello done) -> RSA SSL handskake
+!answ(shows that server hello is finished)
+
+!expl(certificate (client)) -> RSA SSL handskake
+!answ(if server asked for authentication send certificate chain)
+
+!expl(client key exchange) -> RSA SSL handskake
+!answ(encrypt generated pre-master secret with the servers public key\,
+      later used to compute master secret)
+
+!expl(certificate verify (client)) -> RSA SSL handskake
+!answ(client sends a signed hash based on previous messages to verify that
+      it has the private key)
+
+!expl(change cipher spec (client to server)) -> RSA SSL handskake
+!answ(the client uses the new algorithm and keys after this message)
+
+!expl(finished (client)) -> RSA SSL handskake
+!answ(client send encrypted hash of previous messages to indicate that
+      it's finished)
+
+!expl(change cipher spec (server to client)) -> RSA SSL handskake
+!answ(the server uses new algorithm and keys after this message)
+
+!expl(finished (server)) -> RSA SSL handskake
+!answ(server sends previous messages as encrypted hash to signal that
+      it is finished)
+
+!defi(next header, payload length, Security Parameters Index, sequence
+      number, integrity check value) -> authentication header fields
+!answ(next header: payload data type,
+      payload length: length of authentication header-2,
+      security Parameters Index: identifies algorithms and keys,
+      sequence number: prevents replay attacks,
+      integrity check value: MAC value calculated over immutable fields)
+
+!desc(authentication width) -> authentication header
+!answ(AH authenticates whole payload and most of header)
+
+!expl(mutable header fields values) -> checksum calculation and AH
+!answ(all mutable fields ex TTL\, flags and the MAC itself should be
+      set to 0)
+
+!diff([transport ,tunnel ]-mode) -> Authpentication header protocol IPv4
+!answ(transport: [original ip heder | AH | Payload],
+      tunnel: [new ip header | AH | Original ip header | payload ],
+      none:  [original ip header | payload ])
+
+!diff(AH vs ESP) -> IP header authentication
+!answ(AH: MAC scope extends to original IP header,
+      ESP: MAC scope does not extend to the original IP header)
+
+!expl(encryption score) -> ESP protocol
+!answ(.. | payload | ESP trailer | ..)
+
+!desc(packet filter purpose and levels) -> firewall
+!answ(individually examine packets on level 3 (IP) and level 4(TCP/UPD))
+
+!diff([permissive ,restrictive ]-policies) -> packet filter
+!answ(permissive: all packets allowed except (blacklist),
+      restrictive: no packets allowed except (whitelist))
+
+!desc(filter bases) -> packet filter
+!answ(can filter on port or IP address origin/destination)
+
+!expl(stateful packet filtering) -> firewall
+!answ(must allow ports > 1023\, whitelist ports and
+      keep track in a table)
+
+!desc(application level proxy)
+!answ(intermediate between remote and client\,
+      can filter data at application level and hide clients
+      address behind its own\, slower than packet filter)
+
+!diff([anomaly ,misuse ]-detection) -> IDS
+!answ(anomaly: use statistics\, derivations and baselines to detect unusual
+               behavior,
+      misuse: use known attack signatures to identify a intrusion)
